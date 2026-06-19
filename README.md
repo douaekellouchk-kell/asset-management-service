@@ -11,7 +11,7 @@
 
 ---
 
-## 📋 Table des Matières
+## Table des Matières
 
 - [Description](#-description)
 - [Fonctionnalités](#-fonctionnalités)
@@ -30,7 +30,7 @@
 
 ---
 
-## 📖 Description
+## Description
 
 **Asset Management Service** est un microservice RESTful conçu pour la gestion complète des actifs physiques d'une entreprise. Il s'inscrit dans un écosystème ERP modulaire et permet de :
 
@@ -44,50 +44,50 @@ Le service est **dockerisé**, **stateless** et prêt à s'intégrer dans un sys
 
 ---
 
-## ✨ Fonctionnalités
+## Fonctionnalités
 
 ### Gestion des Utilisateurs (EF-01 à EF-05)
-- ✅ Création de comptes utilisateurs avec rôles (Admin, Manager, Employé)
-- ✅ Authentification JWT sécurisée
-- ✅ Contrôle d'accès basé sur les rôles (RBAC)
-- ✅ Modification et désactivation de comptes par l'admin
-- ✅ Mise à jour du profil personnel par l'utilisateur
+- Création de comptes utilisateurs avec rôles (Admin, Manager, Employé)
+- Authentification JWT sécurisée
+- Contrôle d'accès basé sur les rôles (RBAC)
+- Modification et désactivation de comptes par l'admin
+- Mise à jour du profil personnel par l'utilisateur
 
 ### Gestion des Catégories (EF-06 à EF-07)
-- ✅ Création de catégories d'actifs (Informatique, Téléphonie, Mobilier, etc.)
-- ✅ Modification et suppression avec vérification d'intégrité
+- Création de catégories d'actifs (Informatique, Téléphonie, Mobilier, etc.)
+- Modification et suppression avec vérification d'intégrité
 
 ### Gestion des Actifs (EF-08 à EF-12)
-- ✅ CRUD complet avec soft delete
-- ✅ 5 états possibles : Disponible, Affecté, Endommagé, Maintenance, Réformé
-- ✅ Pagination et tri systématiques
-- ✅ Consultation détaillée par identifiant
+- CRUD complet avec soft delete
+- 5 états possibles : Disponible, Affecté, Endommagé, Maintenance, Réformé
+- Pagination et tri systématiques
+- Consultation détaillée par identifiant
 
 ### Système d'Affectation (EF-13 à EF-17)
-- ✅ Affectation d'un actif à un employé (Manager/Admin)
-- ✅ Enregistrement du retour avec état constaté
-- ✅ Changement automatique de statut
-- ✅ Un seul employé par actif à la fois
+- Affectation d'un actif à un employé (Manager/Admin)
+- Enregistrement du retour avec état constaté
+- Changement automatique de statut
+- Un seul employé par actif à la fois
 
 ### Audit et Traçabilité (EF-18 à EF-21)
-- ✅ Journal d'audit automatique pour toutes les actions
-- ✅ Historique complet des affectations par actif
-- ✅ Données avant/après (diff) enregistrées
-- ✅ Filtrage par date, utilisateur ou type d'action
+- Journal d'audit automatique pour toutes les actions
+- Historique complet des affectations par actif
+- Données avant/après (diff) enregistrées
+- Filtrage par date, utilisateur ou type d'action
 
 ### Recherche et Filtrage (EF-22 à EF-25)
-- ✅ Recherche par nom, numéro de série ou catégorie
-- ✅ Filtrage par état, catégorie ou employé affecté
-- ✅ Pagination systématique des résultats
+- Recherche par nom, numéro de série ou catégorie
+- Filtrage par état, catégorie ou employé affecté
+- Pagination systématique des résultats
 
 ### Supervision (EF-29)
-- ✅ Endpoint `/health` avec état du service et de la BDD
-- ✅ Logs structurés au format JSON
-- ✅ Métriques de performance (durée des requêtes)
+- Endpoint `/health` avec état du service et de la BDD
+- Logs structurés au format JSON
+- Métriques de performance (durée des requêtes)
 
 ---
 
-## 🏗️ Architecture
+## Architecture
 
 Le service adopte une **architecture microservice REST** avec séparation en trois couches :
 
@@ -121,7 +121,7 @@ Le service adopte une **architecture microservice REST** avec séparation en tro
 
 ---
 
-## 🛠️ Stack Technologique
+## Stack Technologique
 
 | Composant | Technologie | Justification |
 |-----------|-------------|---------------|
@@ -136,7 +136,7 @@ Le service adopte une **architecture microservice REST** avec séparation en tro
 
 ---
 
-## 📦 Prérequis
+## Prérequis
 
 Avant de commencer, assurez-vous d'avoir installé :
 
@@ -150,7 +150,7 @@ Avant de commencer, assurez-vous d'avoir installé :
 
 ---
 
-## 🚀 Installation
+## Installation
 
 ### 1. Cloner le dépôt
 
@@ -191,30 +191,31 @@ docker-compose down
 
 ---
 
-## ⚙️ Configuration
+## Configuration
 
 Le fichier `.env` contient les variables de configuration :
 
 ```env
-# Base de données
+# Database
 POSTGRES_USER=asset_user
 POSTGRES_PASSWORD=asset_password
 POSTGRES_DB=asset_management
-DATABASE_URL=postgresql://asset_user:asset_password@db:5432/asset_management
 
 # JWT
-JWT_SECRET_KEY=your-secret-key-change-in-production
-JWT_ALGORITHM=HS256
-JWT_EXPIRATION_HOURS=1
+SECRET_KEY=your-secret-key-change-in-production-min-32-chars
+ALGORITHM=HS256
+ACCESS_TOKEN_EXPIRE_MINUTES=60
 
-# API
-API_HOST=0.0.0.0
-API_PORT=8000
-```
+# App
+APP_NAME="Asset Management System"
+DEBUG=True
+
+# DATABASE_URL complète
+DATABASE_URL=postgresql://asset_user:asset_password@db:5432/asset_management
 
 ---
 
-## 💻 Utilisation
+## Utilisation
 
 ### Accès aux Services
 
@@ -238,7 +239,7 @@ API_PORT=8000
 
 ---
 
-## 📚 Documentation API
+## Documentation API
 
 L'API est entièrement documentée via **Swagger/OpenAPI** :
 
@@ -282,7 +283,7 @@ L'API est entièrement documentée via **Swagger/OpenAPI** :
 
 ---
 
-## 🔐 Identifiants de Démonstration
+## Identifiants de Démonstration
 
 Les comptes suivants sont créés automatiquement au premier démarrage :
 
@@ -294,11 +295,11 @@ Les comptes suivants sont créés automatiquement au premier démarrage :
 | **Employé 2** | `marie.martin@test.com` | `employee123` |
 | **Employé 3** | `ahmed.benali@test.com` | `employee123` |
 
-⚠️ **Note de sécurité** : Ces identifiants sont destinés uniquement à l'environnement de développement/démonstration. **Ne jamais utiliser en production.**
+**Note de sécurité** : Ces identifiants sont destinés uniquement à l'environnement de développement/démonstration. **Ne jamais utiliser en production.**
 
 ---
 
-## 🧪 Tests
+## Tests
 
 ### Exécuter les tests
 
@@ -317,26 +318,26 @@ docker-compose exec api pytest --cov=app --cov-report=term-missing
 
 ---
 
-## ✅ Conformité au Cahier des Charges
+## Conformité au Cahier des Charges
 
 Le projet implémente **100% des exigences fonctionnelles** du Cahier des Charges :
 
 | Section | Exigences | Statut |
 |---------|-----------|--------|
-| 3.1 Gestion Utilisateurs | EF-01 à EF-05 | ✅ 100% |
-| 3.2 Gestion Catégories | EF-06 à EF-07 | ✅ 100% |
-| 3.3 Gestion Actifs | EF-08 à EF-12 | ✅ 100% |
-| 3.4 États des Actifs | 5 états | ✅ 100% |
-| 3.5 Affectation/Retour | EF-13 à EF-17 | ✅ 100% |
-| 3.6 Audit & Historique | EF-18 à EF-21 | ✅ 100% |
-| 3.7 Recherche/Filtres | EF-22 à EF-25 | ✅ 100% |
-| 4.5 Logs JSON + /health | Section 4.5 | ✅ 100% |
-| 6.7 Format Réponses | Section 6.7 | ✅ 100% |
-| 9.2 Scénario Démo | Section 9.2 | ✅ Testé |
+| 3.1 Gestion Utilisateurs | EF-01 à EF-05 | 100% |
+| 3.2 Gestion Catégories | EF-06 à EF-07 | 100% |
+| 3.3 Gestion Actifs | EF-08 à EF-12 | 100% |
+| 3.4 États des Actifs | 5 états | 100% |
+| 3.5 Affectation/Retour | EF-13 à EF-17 | 100% |
+| 3.6 Audit & Historique | EF-18 à EF-21 | 100% |
+| 3.7 Recherche/Filtres | EF-22 à EF-25 | 100% |
+| 4.5 Logs JSON + /health | Section 4.5 | 100% |
+| 6.7 Format Réponses | Section 6.7 | 100% |
+| 9.2 Scénario Démo | Section 9.2 | Testé |
 
 ---
 
-## 📁 Structure du Projet
+## Structure du Projet
 
 ```
 asset-management-service/
@@ -389,26 +390,27 @@ asset-management-service/
 
 ---
 
-## 👥 Auteurs
+## Auteurs
 
-**Projet réalisé dans le cadre du PFA 2024-2025**
+**Projet réalisé dans le cadre du PFA 2025-2026**
 
-- **[Votre Prénom NOM]** — Backend / Architecture
-- **[Collègue Prénom NOM]** — Base de données / Tests / Documentation
+- **[Kellouch Douae/Kellouch Nadir]** — Backend / Architecture
+- **[Universite Ibn tofail]** — Base de données / Tests / Documentation
 
 **Encadrant** : [Nom de l'encadrant]  
-**Établissement** : [Nom de l'établissement]  
-**Filière** : Génie Logiciel / Informatique
+**Établissement** : [Ecole superieur de technologie]  
+**Filière** : Génie Logiciel
+https://github.com/votre-repo/asset-management-service.git
 
 ---
 
-## 📄 Licence
+## Licence
 
 Ce projet est réalisé dans un cadre académique et est destiné à un usage éducatif uniquement.
 
 ---
 
-## 🙏 Remerciements
+## Remerciements
 
 - Merci à notre encadrant pour son suivi et ses conseils
 - Merci à l'établissement pour les ressources mises à disposition
@@ -416,7 +418,7 @@ Ce projet est réalisé dans un cadre académique et est destiné à un usage é
 
 ---
 
-## 📸 Captures d'Écran
+## Captures d'Écran
 
 ### Interface de Connexion
 ![Login Page](docs/screenshots/login.png)
@@ -436,8 +438,8 @@ Ce projet est réalisé dans un cadre académique et est destiné à un usage é
 ### Documentation Swagger Interactive
 ![Swagger UI](docs/screenshots/swagger.png)
 
-> 💡 **Note** : Les captures d'écran sont disponibles dans le dossier `docs/screenshots/`
-## 🛠️ Développement Local (sans Docker)
+> **Note** : Les captures d'écran sont disponibles dans le dossier `docs/screenshots/`
+## Développement Local (sans Docker)
 
 ### Backend (FastAPI)
 
@@ -457,4 +459,4 @@ cp .env.example .env
 # Lancer le serveur
 uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 
-**🎓 Projet prêt pour la soutenance — Juin 2026**
+**Projet prêt pour la soutenance — Juin 2026**
