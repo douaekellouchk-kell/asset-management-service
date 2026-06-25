@@ -299,8 +299,6 @@ const fetchData = async () => {
     setAssets(Array.isArray(assetsData) ? assetsData : []);
     setCategories(Array.isArray(categoriesData) ? categoriesData : []);
     setEmployees(Array.isArray(employeesData) ? employeesData : []);
-    setTotalAssets(total);
-    
     // ✅ Utiliser le vrai total retourné par l'API
     setTotalAssets(total);
 
@@ -360,6 +358,7 @@ const fetchData = async () => {
       setShowCreateModal(false);
       setCurrentPage(1);
       await fetchData();
+      await updateStats();
       showToast('Actif créé avec succès !', 'success');
     } catch (err: any) {
       console.error('Erreur création:', err);
@@ -369,6 +368,25 @@ const fetchData = async () => {
       setActionLoading(false);
     }
   };
+  const updateStats = async () => {
+  try {
+    const token = localStorage.getItem('token');
+    if (!token) return;
+    
+    const response = await fetch('http://localhost:8000/assets/stats', {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    
+    if (response.ok) {
+      const data = await response.json();
+      setStats(data);
+    }
+  } catch (error) {
+    console.error('Erreur mise à jour stats:', error);
+  }
+};
 
   const handleEdit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -387,6 +405,7 @@ const fetchData = async () => {
       });
       setShowEditModal(false);
       await fetchData();
+      await updateStats();
       showToast('Actif modifié avec succès !', 'success');
     } catch (err: any) {
       console.error('Erreur modification:', err);
@@ -403,6 +422,7 @@ const fetchData = async () => {
     try {
       await assetApi.delete(selectedAsset.id);
       setShowDeleteModal(false);
+      await fetchData();
       await fetchData();
       showToast('Actif supprimé avec succès !', 'success');
     } catch (err) {
@@ -440,6 +460,7 @@ const fetchData = async () => {
     try {
       await assetApi.return(selectedAsset.id, 'GOOD');
       setShowReturnModal(false);
+      await fetchData();
       await fetchData();
       showToast('Actif retourné avec succès !');
     } catch (err: any) {
